@@ -4,7 +4,7 @@
 //
 //  Created by Jared Davidson on 5/28/21.
 //
-
+//the app itself
 import SwiftUI
 
 @main

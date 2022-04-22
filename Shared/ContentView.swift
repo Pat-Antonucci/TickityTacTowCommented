@@ -8,9 +8,12 @@
 import SwiftUI
 
 struct ContentView: View {
+    //Opens an instance of ticTacToeModel class
     @StateObject var ticTacToeModel = TicTacToeModel()
+    //Is the game over....currently not over
     @State var gameOver : Bool = false
     
+    //The function that will put an "X" on the gameboard.
     func buttonAction(_ index : Int) {
         _ = self.ticTacToeModel.makeMove(index: index, player: .home)
         self.gameOver = self.ticTacToeModel.gameOver.1
@@ -19,6 +22,7 @@ struct ContentView: View {
     var body: some View {
         VStack {
             Text("Tickity Tac Toe")
+            //Name of the game
                 .bold()
                 .foregroundColor(Color.black.opacity(0.7))
                 .padding(.bottom)
@@ -28,8 +32,10 @@ struct ContentView: View {
                 HStack {
                     ForEach(0 ..< 3, content: {
                         column in
+                        //Keeps track of the index of the 9 locations 0...8
                         let index = row * 3 + column
                         SquareView(dataSource: ticTacToeModel.squares[index], action: {self.buttonAction(index)})
+                        // This is creating the scene of the game itself
                     })
                 }
             })
@@ -38,6 +44,7 @@ struct ContentView: View {
                   message: Text(self.ticTacToeModel.gameOver.0 != .empty ? self.ticTacToeModel.gameOver.0 == .home ? "You Win!": "AI Wins!" : "Nobody Wins" ) , dismissButton: Alert.Button.destructive(Text("Ok"), action: {
                     self.ticTacToeModel.resetGame()
                   }))
+            //Code to create an end of the game variable
         })
     }
 }

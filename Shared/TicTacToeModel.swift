@@ -10,13 +10,13 @@ import SwiftUI
 
 class TicTacToeModel : ObservableObject {
     @Published var squares = [Square]()
-    
+        //init...intitializes...runs one time at the start of the game
     init() {
         for _ in 0...8 {
             squares.append(Square(status: .empty))
         }
     }
-    
+    //resets the game
     func resetGame() {
         for i in 0...8 {
             squares[i].squareStatus = .empty
@@ -37,7 +37,7 @@ class TicTacToeModel : ObservableObject {
             }
         }
     }
-    
+    //returns if there's a winner.. home, visitor, or a tie.
     private var thereIsAWinner: SquareStatus {
         get {
             if let check = self.checkIndexes([0, 1, 2]) {
@@ -60,7 +60,7 @@ class TicTacToeModel : ObservableObject {
             return .empty
         }
     }
-    
+    //checking the three indexes that is passed, if all three match...
     private func checkIndexes(_ indexes : [Int]) -> SquareStatus? {
         var homeCounter : Int = 0
         var visitorCounter : Int = 0
@@ -79,10 +79,12 @@ class TicTacToeModel : ObservableObject {
         }
         return nil
     }
-    
+    //picks a random spot and has the AI play there...not an AI...it picks a random spot and plays there...AS (Artificial Stupidity)
     private func moveAI() {
+        //picks random number
         var index = Int.random(in: 0...8)
         while makeMove(index: index, player: .visitor) == false && gameOver.1 == false {
+            //while no move made, pick another random number
             index = Int.random(in: 0...8)
         }
     }
